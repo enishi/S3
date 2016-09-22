@@ -20,6 +20,11 @@
     "sproxyd": {
         "bootstrap": ["localhost:8181"]
     },
+    "cdmi": {
+        "host": "localhost",
+        "port": 81,
+        "path": "/dewpoint"
+    },
     "bucketd": {
         "bootstrap": ["localhost"]
     },
