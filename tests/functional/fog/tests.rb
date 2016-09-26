@@ -75,7 +75,7 @@ describe Fog do
         connection.delete_object($bucketName, "helloFog")
     end
 
-    it "should put a streaming object (streaming v4 auth)" do
+    xit "should put a streaming object (streaming v4 auth)" do
         streamObject = $bucket.files.create(
             :key => "streamObject",
             :body => File.open(fileToStream),
@@ -84,7 +84,7 @@ describe Fog do
         expect(streamObject.etag).to eq(fileToStreamMd5)
     end
 
-    it "should get a streamed object (regular v4 auth)" do
+    xit "should get a streamed object (regular v4 auth)" do
         open(downloadFile, "wb") do |f|
           $bucket.files.get("streamObject") do
             |chunk,remainingBytes,totalBytes|
@@ -95,7 +95,7 @@ describe Fog do
         expect(downloadedFileMd5).to eq($fileToStreamMd5)
     end
 
-    it "should delete a streamed object (regular v4 auth)" do
+    xit "should delete a streamed object (regular v4 auth)" do
         connection.delete_object($bucketName, "streamObject")
     end
 
@@ -106,7 +106,7 @@ describe Fog do
         $uploadId = response.body["UploadId"]
     end
 
-    it "should upload a streaming part (streaming v4 auth)" do
+    xit "should upload a streaming part (streaming v4 auth)" do
         response = connection.upload_part($bucketName,
             "mpuObject", $uploadId, 1, File.open(fileToStream)
         )

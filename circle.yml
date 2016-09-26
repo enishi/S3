@@ -13,7 +13,6 @@ machine:
     version: "2.0"
   environment:
     CXX: g++-4.9
-    EXCON_DEBUG: true
 
 dependencies:
   post:
@@ -39,12 +38,12 @@ test:
     - yamllint $(git ls-files '*.yml')
     - mkdir -p $CIRCLE_TEST_REPORTS/unit
     - npm run unit_coverage
-    - S3BACKEND=mem npm start & sleep 4 && npm run ft_test;
-    - S3BACKEND=mem npm start & sleep 4 &&
+    - S3BACKEND=mem npm start & sleep 15 && npm run ft_test;
+    - S3BACKEND=mem npm start & sleep 15 &&
       ENABLE_KMS_ENCRYPTION=true npm run ft_test;
-    - S3BACKEND=file S3VAULT=mem npm start & sleep 4 && npm run ft_test;
+    - S3BACKEND=file S3VAULT=mem npm start & sleep 15 && npm run ft_test;
     - rm -rf localData/* localMetadata/*
-    - S3BACKEND=file S3VAULT=mem npm start & sleep 4 &&
+    - S3BACKEND=file S3VAULT=mem npm start & sleep 15 &&
       ENABLE_KMS_ENCRYPTION=true npm run ft_test;
-    - S3BACKEND=mem npm start & sleep 4 &&
+    - S3BACKEND=mem npm start & sleep 15 &&
       cd tests/functional/fog && rspec tests.rb
