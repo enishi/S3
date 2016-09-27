@@ -4,7 +4,7 @@ require "json"
 require "securerandom"
 require "excon"
 
-config = File.read("config.json")
+config = File.read("../config.json")
 rubyConfig = JSON.parse(config)
 
 transport = rubyConfig["transport"];
@@ -12,11 +12,8 @@ ipAddress = ENV["IP"] ? ENV["IP"]: '127.0.0.1'
 endpoint = "#{transport}://#{ipAddress}:8000";
 
 if(rubyConfig["certPath"])
-    Excon.defaults[:ssl_ca_path] = rubyConfig["certPath"]
+    Excon.defaults[:ssl_ca_path] = rubyConfig["caCertPath"]
 end
-
-# Excon.defaults[:ssl_verify_peer] = false
-# Excon.defaults[:ssl_uri_schemes] = [ transport ]
 
 connection = Fog::Storage.new(
 	{ :provider => "AWS",
@@ -45,7 +42,8 @@ describe Fog do
 
     after(:all) do
         File.unlink(fileToStream)
-        File.unlink(downloadFile)
+        # RESTORE ME WHEN ENABLING STREAMING TESTS
+        # File.unlink(downloadFile)
     end
 
     $bucketName = "myrubybucket"
